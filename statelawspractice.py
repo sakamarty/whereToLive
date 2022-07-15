@@ -2,6 +2,7 @@ from calendar import IllegalMonthError
 from multiprocessing.sharedctypes import Value
 from optparse import Values
 from re import M
+from pyparsing import str_type
 
 from traitlets import Int
 import copy
@@ -20,8 +21,60 @@ def make_hash(o):
 
         return hash(tuple(frozenset(sorted(new_o.items()))))
 
-USAstates = ["Alabama", "Alaska", "Florida"]
-USAlaws = ["abortion", "cannabis"]
+USAstates = [
+"Alaska",
+"Alabama",
+"Arkansas",
+"Arizona",
+"California",
+"Colorado",
+"Connecticut",
+"District of Columbia",
+"Delaware",
+"Florida",
+"Georgia",
+"Hawaii",
+"Iowa",
+"Idaho",
+"Illinois",
+"Indiana",
+"Kansas",
+"Kentucky",
+"Louisiana",
+"Massachusetts",
+"Maryland",
+"Maine",
+"Michigan",
+"Minnesota",
+"Missouri",
+"Mississippi",
+"Montana",
+"North Carolina",
+"North Dakota",
+"Nebraska",
+"New Hampshire",
+"New Jersey",
+"New Mexico",
+"Nevada",
+"New York",
+"Ohio",
+"Oklahoma",
+"Oregon",
+"Pennsylvania",
+"Rhode Island",
+"South Carolina",
+"South Dakota",
+"Tennessee",
+"Texas",
+"Utah",
+"Virginia",
+"Vermont",
+"Washington",
+"Wisconsin",
+"West Virginia",
+"Wyoming"]
+
+USAlaws = ["abortion", "cannabis",]
 abortionLaw = {
     0 : "banned",
     1 : "restricted",
@@ -35,7 +88,7 @@ cannabisLaw = {
     2 : "legal for medical and recreation use",
 }
 
-states = {tuple(
+states = [tuple(
 {
     "State Name": "Alabama",
     "Abortion Law": "restricted",
@@ -49,15 +102,14 @@ tuple(
     "Cannabis Law": "legal for medical use",
     "Voter Leaning": "red",
 }),
-tuple(
 
 {
     "State Name": "Florida",
     "Abortion Law": "restricted",
     "Cannabis Law": "legal for medical use",
     "Voter Leaning": "red"
-}),
-}
+},
+]
 
 
 
@@ -80,33 +132,54 @@ def stateLaws(topic, results):
 #abortionStatus =
 #cannabisStatus = states[3:4]
 #stateStatus = 
-user_state = input("State: ")
-user_law = input("Law: ")
-stateLaw1 = [states, 0, 1]
 
-user_question = "In " + user_state + ", " + user_law + " is " + str(abortionLaw[1]) + "."
+stateLaw1 = [states, 0, 1]
+#states_dict = dict(states)
+states_list = list(states)
+
+#user_question = "In " + user_state + ", " + user_law + " is " + str(abortionLaw[1]) + "."
 #stateStatus = states[0:49].values()
 #if user_input == USAstates:
-print(user_question)
-
+#print(user_question)
+user_state = str(input("State: "))
+user_law = str(input("Law: "))
 #if user_law in USAlaws and user_state in USAstates:
 #    print("In " + user_state + ", " + user_law + " is " + str(stateLaw1[1:1]) + ".")
+#if user_state in USAstates[0:49] and user_law in USAlaws[0:2]:
 
-if user_law == "abortion" and user_state == "Alabama":
-    print("In " + user_state + ", " + user_law + " is " + str(dict(abortionLaw).get(1)) + ".") 
-    exit()
-elif user_law == "cannabis" or "marijuana" or "weed" and user_state == "Alabama":
-    print("In " + user_state + ", " + user_law + " is " + str(dict(cannabisLaw).get(1)) + "." )
-    exit()
+def stateLawCall(states):
+    
+    if user_law == str("abortion") and user_state == str("Alabama"):
+        print("In " + user_state + ", " + user_law + " is " + abortionLaw[1] + ".")
+        exit() 
+    if user_law == str("cannabis") and user_state == str("Alabama"):
+        print("In " + user_state + ", " + user_law + " is " + cannabisLaw[1] + "." )
+        exit()
+
+    
+
+    else:
+        print("Done")
+
+print(stateLawCall(states))
+
+ 
 
 
-if user_law == "abortion" and user_state == "Alaska":
-    print("In " + user_state + ", " + user_law + " is " + str(dict(abortionLaw).get(3)) + ".") 
-    exit()
-if user_law == "cannabis" or "marijuana" or "weed" and user_state == "Alaska":
-    print("In " + user_state + ", " + user_law + " is " + str(dict(cannabisLaw).get(2)) + "." )
-    exit()
+#if user_law == "abortion" and user_state == "Alabama":
+    #print("In " + user_state + ", " + user_law + " is " + str(dict(abortionLaw).get(1)) + ".") 
+    #exit()
+#elif user_law == "cannabis" or "marijuana" or "weed" and user_state == "Alabama":
+    #print("In " + user_state + ", " + user_law + " is " + str(dict(cannabisLaw).get(1)) + "." )
+    #exit()
 
+
+#if user_law == "abortion" and user_state == "Alaska":
+    #print("In " + user_state + ", " + user_law + " is " + str(dict(abortionLaw).get(3)) + ".") 
+    #exit()
+#if user_law == "cannabis" or "marijuana" or "weed" and user_state == "Alaska":
+    #print("In " + user_state + ", " + user_law + " is " + str(dict(cannabisLaw).get(2)) + "." )
+    #exit()
 
 
 #print("Abortion Law")
@@ -114,3 +187,4 @@ if user_law == "cannabis" or "marijuana" or "weed" and user_state == "Alaska":
 #print("Rights Score is: " + str(sum("Alabama".values())))
 
 
+#for (key, val) in states.items():
